@@ -25,10 +25,10 @@ const reviewRoutes = require('./routes/reviews.js');
 
 /// || 'mongodb://localhost:27017/yelp-camp';
 
-const dbURL = process.env.DB_URL 
+const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
 
 
-mongoose.connect(dbURL, {
+mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
     // useCreateIndex: true, no longer required in the updated mongoose
     useUnifiedTopology: true
@@ -57,7 +57,8 @@ app.use(mongoSanitize({
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = MongoStore.create({
-    mongoUrl: dbURL,
+    mongoUrl: process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp',
+    secret,
     touchAfter: 24 * 60 * 60, /// time period in seconds
     crypto: {
         secret
@@ -69,7 +70,7 @@ store.on('error', function(e){
 })
 
 const sessionConfig = {
-    store : store,
+    store,
     name: 'session',
     secret,
     resave: false,
