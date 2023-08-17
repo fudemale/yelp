@@ -28,7 +28,7 @@ const reviewRoutes = require('./routes/reviews.js');
 const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
 
 
-mongoose.connect(dbURL, {
+mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     // useCreateIndex: true, no longer required in the updated mongoose
     useUnifiedTopology: true
