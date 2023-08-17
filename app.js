@@ -26,6 +26,7 @@ const reviewRoutes = require('./routes/reviews.js');
 /// || 'mongodb://localhost:27017/yelp-camp';
 
 const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
+console.log = process.env.DB_URL;
 
 
 mongoose.connect(process.env.DB_URL, {
